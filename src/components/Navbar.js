@@ -1,19 +1,28 @@
+import axios from "axios";
 import React from "react";
+import { useHistory } from "react-router";
 
 const Navbar = () => {
+  const history = useHistory();
+  
+  const Logout = async() => {
+    try {
+      await axios.delete('http://localhost:5000/logout');
+      history.push("/");
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   return (
-    <nav
-      className="navbar is-light"
-      role="navigation"
-      aria-label="main navigation">
+    <nav className="navbar is-light" role="navigation" aria-label="main navigation">
       <div className="container">
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://bulma.io">
-            {/* <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> */}
+          <a className="navbar-item" href="/">
+            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" alt="logo" />
           </a>
 
-          <a
-            role="button"
+          <a href="/" role="button"
             className="navbar-burger burger"
             aria-label="menu"
             aria-expanded="false"
@@ -27,13 +36,13 @@ const Navbar = () => {
 
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item">Home</a>
+            <a href="/" className="navbar-item">Home</a>
           </div>
 
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                <a className="button is-light">Log out</a>
+                <button onClick={Logout} className="button is-light">Log out</button>
               </div>
             </div>
           </div>
